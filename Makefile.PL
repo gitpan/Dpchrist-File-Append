@@ -1,5 +1,5 @@
 #######################################################################
-# $Id: Makefile.PL,v 1.8 2010-11-25 02:21:53 dpchrist Exp $
+# $Id: Makefile.PL,v 1.9 2010-11-25 18:29:54 dpchrist Exp $
 #
 # Copyright 2010 by David Paul Christensen dpchrist@holgerdanske.com
 #
@@ -22,9 +22,8 @@ use ExtUtils::MakeMaker;
 
 use Dpchrist::Module::MakefilePL (
     -mcpani		=> $ENV{CPAN_AUTHORID},
-    -pod2html	 	=> [qw(
-	lib/Dpchrist/File/Append.pm
-    )],
+    -pod2html	 	=> qw(lib/Dpchrist/File/Append.pm),
+    -readme	 	=> qw(lib/Dpchrist/File/Append.pm),
     -release		=> $ENV{RELEASE_ROOT},
 );
 
@@ -33,14 +32,14 @@ WriteMakefile(
     VERSION_FROM	=> 'lib/Dpchrist/File/Append.pm',
     PREREQ_PM		=> {
 	'Capture::Tiny'		=> 0,
-	'Dpchrist::Is'		=> 1.017,
-	'Dpchrist::Module'	=> 1.016,
+	'Dpchrist::Is'		=> 1.024,
+	'Dpchrist::Module'	=> 1.021,
 	'File::Slurp',		=> 0,
 	'feature',		=> 0,
     },
     ABSTRACT_FROM	=> 'lib/Dpchrist/File/Append.pm',
     AUTHOR		=>
-	'David Christensen <dpchrist@holgerdanske.com>',
+	'David Paul Christensen <dpchrist@holgerdanske.com>',
     clean		=> {
 	FILES => q( *~tmp */*~tmp Dpchrist* ),
     },

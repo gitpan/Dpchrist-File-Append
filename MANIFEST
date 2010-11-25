@@ -1,5 +1,6 @@
 LICENSE
 MANIFEST
+README
 Makefile.PL
 lib/Dpchrist/File/Append.pm
 t/0_compile_modules.t
