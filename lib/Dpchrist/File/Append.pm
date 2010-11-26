@@ -1,5 +1,5 @@
 #######################################################################
-# $Id: Append.pm,v 1.28 2010-11-25 18:29:54 dpchrist Exp $
+# $Id: Append.pm,v 1.29 2010-11-26 20:37:18 dpchrist Exp $
 #######################################################################
 # package:
 #----------------------------------------------------------------------
@@ -23,7 +23,7 @@ our @EXPORT_OK	= (
 
 our @EXPORT	= qw();
 
-our $VERSION	= sprintf "%d.%03d", q$Revision: 1.28 $ =~ /(\d+)/g;
+our $VERSION	= sprintf "%d.%03d", q$Revision: 1.29 $ =~ /(\d+)/g;
 
 #######################################################################
 # uses:
@@ -43,7 +43,7 @@ Dpchrist::File::Append - append to file or filehandle
 
 =head1 DESCRIPTION
 
-This documentation describes module revision $Revision: 1.28 $.
+This documentation describes module revision $Revision: 1.29 $.
 
 
 This is alpha test level software

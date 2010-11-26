@@ -1,5 +1,5 @@
 #######################################################################
-# $Id: Makefile.PL,v 1.9 2010-11-25 18:29:54 dpchrist Exp $
+# $Id: Makefile.PL,v 1.10 2010-11-26 20:37:18 dpchrist Exp $
 #
 # Copyright 2010 by David Paul Christensen dpchrist@holgerdanske.com
 #
@@ -33,7 +33,7 @@ WriteMakefile(
     PREREQ_PM		=> {
 	'Capture::Tiny'		=> 0,
 	'Dpchrist::Is'		=> 1.024,
-	'Dpchrist::Module'	=> 1.021,
+	'Dpchrist::Module'	=> 1.023,
 	'File::Slurp',		=> 0,
 	'feature',		=> 0,
     },
