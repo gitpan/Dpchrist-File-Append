@@ -1,5 +1,5 @@
 #######################################################################
-# $Id: Makefile.PL,v 1.10 2010-11-26 20:37:18 dpchrist Exp $
+# $Id: Makefile.PL,v 1.11 2010-11-27 03:37:58 dpchrist Exp $
 #
 # Copyright 2010 by David Paul Christensen dpchrist@holgerdanske.com
 #
@@ -18,24 +18,33 @@
 # USA.
 #######################################################################
 
-use ExtUtils::MakeMaker;
+eval {
+    require Dpchrist::Module::MakefilePL;
+    
+    import Dpchrist::Module::MakefilePL (
+	-mcpani		=> $ENV{CPAN_AUTHORID},
+	-pod2html	=> 'lib/Dpchrist/File/Append.pm',
+	-readme	 	=> 'lib/Dpchrist/File/Append.pm',
+	-release	=> $ENV{RELEASE_ROOT},
+    );
+};
+warn $@ if $@;
 
-use Dpchrist::Module::MakefilePL (
-    -mcpani		=> $ENV{CPAN_AUTHORID},
-    -pod2html	 	=> qw(lib/Dpchrist/File/Append.pm),
-    -readme	 	=> qw(lib/Dpchrist/File/Append.pm),
-    -release		=> $ENV{RELEASE_ROOT},
-);
+use ExtUtils::MakeMaker;
 
 WriteMakefile(
     NAME		=> 'Dpchrist::File::Append',
     VERSION_FROM	=> 'lib/Dpchrist/File/Append.pm',
     PREREQ_PM		=> {
-	'Capture::Tiny'		=> 0,
-	'Dpchrist::Is'		=> 1.024,
-	'Dpchrist::Module'	=> 1.023,
-	'File::Slurp',		=> 0,
-	'feature',		=> 0,
+	Capture::Tiny		=> 0,
+	Dpchrist::Is		=> 1.026,
+	Dpchrist::Module	=> 1.025,
+	File::Slurp		=> 0,
+	Getopt::Long		=> 0,
+	Pod::Html		=> 0,
+	Pod::Text		=> 0,
+	Pod::Usage		=> 0,
+	feature			=> 0,
     },
     ABSTRACT_FROM	=> 'lib/Dpchrist/File/Append.pm',
     AUTHOR		=>
