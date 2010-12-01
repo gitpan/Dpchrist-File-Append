@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Dpchrist-File-Append
-version:            1.031
+version:            1.032
 abstract:           append to file or filehandle
 author:
     - David Paul Christensen <dpchrist@holgerdanske.com>
@@ -11,15 +11,9 @@ configure_requires:
 build_requires:
     ExtUtils::MakeMaker:  0
 requires:
-    Capture::Tiny:     0
-    Dpchrist::Is:      1.027
-    Dpchrist::Module:  1.026
-    feature:           0
-    File::Slurp:       0
-    Getopt::Long:      0
-    Pod::Html:         0
-    Pod::Text:         0
-    Pod::Usage:        0
+    Capture::Tiny:  0
+    Dpchrist::Is:   1.028
+    File::Slurp:    0
 no_index:
     directory:
         - t
