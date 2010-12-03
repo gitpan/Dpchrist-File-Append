@@ -1,5 +1,5 @@
 #######################################################################
-# $Id: Append.pm,v 1.32 2010-11-30 20:49:08 dpchrist Exp $
+# $Id: Append.pm,v 1.33 2010-12-03 05:13:48 dpchrist Exp $
 #######################################################################
 # package:
 #----------------------------------------------------------------------
@@ -23,7 +23,7 @@ our @EXPORT_OK	= (
 
 our @EXPORT	= qw();
 
-our $VERSION	= sprintf "%d.%03d", q$Revision: 1.32 $ =~ /(\d+)/g;
+our $VERSION	= sprintf "%d.%03d", q$Revision: 1.33 $ =~ /(\d+)/g;
 
 #######################################################################
 # uses:
@@ -43,7 +43,7 @@ Dpchrist::File::Append - append to file or filehandle
 
 =head1 DESCRIPTION
 
-This documentation describes module revision $Revision: 1.32 $.
+This documentation describes module revision $Revision: 1.33 $.
 
 
 This is alpha test level software
@@ -136,8 +136,6 @@ All of the subroutines may be imported by using the ':all' tag:
 
     use Dpchrist::File::Append		qw( :all );
 
-See 'perldoc Export' for everything in between.
-
 
 =head1 INSTALLATION
 
@@ -155,13 +153,6 @@ Minimal:
 Complete:
 
     $ cpan Bundle::Dpchrist
-
-The following warning may be safely ignored:
-
-    Can't locate Dpchrist/Module/MakefilePL.pm in @INC (@INC contains: /
-    etc/perl /usr/local/lib/perl/5.10.0 /usr/local/share/perl/5.10.0 /us
-    r/lib/perl5 /usr/share/perl5 /usr/lib/perl/5.10 /usr/share/perl/5.10
-    /usr/local/lib/site_perl .) at Makefile.PL line 22.
 
 
 =head2 PREREQUISITES
