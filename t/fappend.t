@@ -1,20 +1,20 @@
-# $Id: fappend.t,v 1.14 2009-11-30 00:36:35 dpchrist Exp $
-
-use Test::More tests => 12;
-
-use Dpchrist::File::Append	qw( :all );
+# $Id: fappend.t,v 1.16 2010-12-20 06:05:18 dpchrist Exp $
 
 use strict;
 use warnings;
 
-use Capture::Tiny	qw( capture );
+use Test::More tests => 12;
+
+use Dpchrist::File::Append	qw( fappend );
+
+use Capture::Tiny		qw( capture );
 use Carp;
 use Data::Dumper;
+use File::Basename;
 use File::Slurp;
 
-$Data::Dumper::Sortkeys = 1;
-
-$| = 1;
+$|				= 1;
+$Data::Dumper::Sortkeys		= 1;
 
 my $r;		# eval{} return value
 my $f;		# temporary file
@@ -35,7 +35,7 @@ ok(                                                             #     1
     !defined $r
     && $@ =~ /invalid file handle or file name/,
     'call on undefined value should fail'
-) or confess join(" ",  __FILE__, __LINE__,
+) or confess join(" ",  basename(__FILE__), __LINE__,
     Data::Dumper->Dump([$r, $@],
 		     [qw(r   @)]),
 );
@@ -47,7 +47,7 @@ ok(                                                             #     2
     !defined $r
     && $@ =~ /invalid file handle or file name/,
     'call on reference should fail'
-) or confess join(" ",  __FILE__, __LINE__,
+) or confess join(" ",  basename(__FILE__), __LINE__,
     Data::Dumper->Dump([$r, $@],
 		     [qw(r   @)]),
 );
@@ -59,7 +59,7 @@ ok(                                                             #     3
     !defined $r
     && $@ =~ /invalid file handle or file name/s,
     'call on bad file name should fail'
-) or confess join(" ",  __FILE__, __LINE__,
+) or confess join(" ",  basename(__FILE__), __LINE__,
     Data::Dumper->Dump([$r, $@, $f],
 		     [qw(r   @   f)]),
 );
@@ -77,7 +77,7 @@ ok(                                                             #     4
     && $stdout eq ''
     && $stderr =~ /hello..world/,
     'call to *STDERR should work'
-) or confess join(" ", __FILE__, __LINE__,
+) or confess join(" ", basename(__FILE__), __LINE__,
     Data::Dumper->Dump([$r, $@, \@m, $stdout, $stderr],
 		     [qw(r   @   *m   stdout   stderr)]),
 );
@@ -91,7 +91,7 @@ ok(                                                             #     5
     && $stdout eq ''
     && $stderr =~ /hello..world/,
     'call to *STDERR as string should work'
-) or confess join(" ", __FILE__, __LINE__,
+) or confess join(" ", basename(__FILE__), __LINE__,
     Data::Dumper->Dump([$r, $@, \@m, $stdout, $stderr],
 		     [qw(r   @   *m   stdout   stderr)]),
 );
@@ -99,7 +99,7 @@ ok(                                                             #     5
 
 ### test filename:
 
-$f = __FILE__ . '~' . __LINE__ . "~tmp";
+$f = basename(__FILE__) . '~' . __LINE__ . "~tmp";
 
 if (-e $f) {
     unlink($f)
@@ -116,12 +116,12 @@ ok(                                                             #     6
     "call on file name with no list should " .
     "create empty file " .
     "and return true",
-) or confess join(" ", __FILE__, __LINE__,
+) or confess join(" ", basename(__FILE__), __LINE__,
     Data::Dumper->Dump([$r, $@, $f, $u],
 		     [qw(r   @   f   u)]),
 );
 
-$f = __FILE__ . '~' . __LINE__ . "~tmp";
+$f = basename(__FILE__) . '~' . __LINE__ . "~tmp";
 
 if (-e $f) { unlink($f) or die $! }
 
@@ -135,12 +135,12 @@ ok(                                                             #     7
     "call on file name with empty list should " .
     "create empty file" .
     "and return true",
-) or confess join(" ", __FILE__, __LINE__,
+) or confess join(" ", basename(__FILE__), __LINE__,
     Data::Dumper->Dump([$r, $@, $f, $u],
 		     [qw(r   @   f   u)]),
 );
 
-@m = (__FILE__, __LINE__);
+@m = (basename(__FILE__), __LINE__);
 $s = join '', @m;
 $r = eval {
     fappend $f, @m;
@@ -153,12 +153,12 @@ ok(                                                             #     8
     "call on file name with list should " .
     "append to file " .
     "and return true"
-) or confess join(" ", __FILE__, __LINE__,
+) or confess join(" ", basename(__FILE__), __LINE__,
     Data::Dumper->Dump([$r, $@, $f, \@m, $s, $u],
 		     [qw(r   @   f   *m   s   u)]),
 );
 
-@m = (__FILE__, __LINE__);
+@m = (basename(__FILE__), __LINE__);
 $s .= join '', @m;
 $r = eval {
     fappend $f, @m;
@@ -171,7 +171,7 @@ ok(                                                             #     9
     "another call on file name with list should " .
     "append to file " .
     "and return true",
-) or confess join(" ", __FILE__, __LINE__,
+) or confess join(" ", basename(__FILE__), __LINE__,
     Data::Dumper->Dump([$r, $@, $f, \@m, $s, $u],
                      [qw(r   $   f   *m   s   u)]),
 );
@@ -180,8 +180,8 @@ ok(                                                             #     9
 ### test filehandle reference:
 
 open(F, ">> $f") or die $!;
-@m = ("ignore this message ", __FILE__, " ", __LINE__, "\n",
-      "ignore this message ", __FILE__, " ", __LINE__, "\n");
+@m = ("ignore this message ", basename(__FILE__), " ", __LINE__, "\n",
+      "ignore this message ", basename(__FILE__), " ", __LINE__, "\n");
 $s .= join "", @m;
 $r = eval {
     fappend *F, @m;
@@ -195,15 +195,15 @@ ok(                                                             #    10
     "call on filehandle with list should " .
     "append to file " .
     "and return true",
-) or confess join(" ", __FILE__, __LINE__,
+) or confess join(" ", basename(__FILE__), __LINE__,
     Data::Dumper->Dump([$r, $@, $f, \@m, $s, $u],
                      [qw(r   @   f   *m   s   u)]),
 );
 
 open(F, ">> $f") or die $!;
 my $fh = *F;
-@m = ("ignore this message ", __FILE__, " ", __LINE__, "\n",
-      "ignore this message ", __FILE__, " ", __LINE__, "\n");
+@m = ("ignore this message ", basename(__FILE__), " ", __LINE__, "\n",
+      "ignore this message ", basename(__FILE__), " ", __LINE__, "\n");
 $s .= join "", @m;
 $r = eval {
     fappend $fh, @m;
@@ -217,7 +217,7 @@ ok(                                                             #    11
     "call with filehandle reference variable should " .
     "append to file" .
     "and return true",
-) or confess join(" ", __FILE__, __LINE__,
+) or confess join(" ", basename(__FILE__), __LINE__,
     Data::Dumper->Dump([$r, $@, $f, \@m, $s, $u],
 		     [qw(r   @   f   *m   s   u)]),
 );
@@ -226,8 +226,8 @@ ok(                                                             #    11
 ### test GLOB reference:
 
 open(my $h, ">> $f") or die $!;
-@m = ("ignore this message ", __FILE__, " ", __LINE__, "\n",
-      "ignore this message ", __FILE__, " ", __LINE__, "\n");
+@m = ("ignore this message ", basename(__FILE__), " ", __LINE__, "\n",
+      "ignore this message ", basename(__FILE__), " ", __LINE__, "\n");
 $s .= join "", @m;
 $r = eval {
     fappend $h, @m;
@@ -241,7 +241,7 @@ ok(                                                             #    12
     "call with GLOB reference should " .
     "append to file" .
     "and return list",
-) or confess join(" ", __FILE__, __LINE__,
+) or confess join(" ", basename(__FILE__), __LINE__,
     Data::Dumper->Dump([$r, $@, $f, $fh, \@m, $s, $u],
 		     [qw(r   @   f   fh   *m   s   u)]),
 );

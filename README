@@ -2,7 +2,7 @@ NAME
     Dpchrist::File::Append - append to file or filehandle
 
 DESCRIPTION
-    This documentation describes module revision $Revision: 1.35 $.
+    This documentation describes module revision $Revision: 1.36 $.
 
     This is alpha test level software and may change or disappear at any
     time.

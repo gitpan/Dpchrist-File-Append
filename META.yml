@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Dpchrist-File-Append
-version:            1.035
+version:            1.036
 abstract:           append to file or filehandle
 author:
     - David Paul Christensen <dpchrist@holgerdanske.com>
@@ -14,9 +14,10 @@ requires:
     Capture::Tiny:        0.06
     Carp:                 1.08
     Data::Dumper:         2.12114
-    Dpchrist::Is:         1.031
+    Dpchrist::Is:         1.032
     Exporter:             5.62
     ExtUtils::MakeMaker:  6.54
+    File::Basename:       2.76
     File::Slurp:          9999.13
     Test::Compile:        0.1
     Test::Manifest:       1.22
